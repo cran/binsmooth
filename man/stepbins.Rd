@@ -42,6 +42,8 @@ The decay ratio for the tail bins. Ignored unless \code{tailShape} equals \code{
 }
 \details{
 We assume that the left endpoint of the first bin is 0 and that the top bin is unbounded. Options exist to replace the top bin with a single bin or a sequence of bins in the shape of a Pareto or exponential tail. The density functions will fit a supplied estimate for the population mean, if supplied.
+
+The methods \code{\link{stepbins}} and \code{\link{rsubbins}} are included in this package mainly for the purpose of comparison. For most use cases, \code{\link{splinebins}} will produce more accurate smoothing results.
 }
 \value{
 Returns a list with the following components.
@@ -51,7 +53,7 @@ Returns a list with the following components.
 \item{shrinkFactor}{If the supplied estimate for the mean is too small to be fitted with a step function, the bins edges will be scaled by \code{shrinkFactor}, which will be chosen less than (and close to) 1.}
 }
 \references{
-Hunter, D., Drown, M., and von Hippel, P. (2016) \emph{Optimized smoothing techniques for binned data}, in preparation.
+Paul T. von Hippel, David J. Hunter, McKalie Drown. \emph{Better Estimates from Binned Income Data: Interpolated CDFs and Mean-Matching}, Sociological Science, November 15, 2017. \url{https://www.sociologicalscience.com/articles-v4-26-641/}
 }
 \author{
 David J. Hunter and McKalie Drown
@@ -62,7 +64,7 @@ David J. Hunter and McKalie Drown
 binedges <- c(10000,15000,20000,25000,30000,35000,40000,45000,
               50000,60000,75000,100000,125000,150000,200000,NA)
 bincounts <- c(157532,97369,102673,100888,90835,94191,87688,90481,
-               79816,153581,195430,240948,155139,9452,92166,103217)
+               79816,153581,195430,240948,155139,94527,92166,103217)
 sb <- stepbins(binedges, bincounts, 76091)
 sbpt <- stepbins(binedges, bincounts, 76091, tailShape="pareto")
 
@@ -71,7 +73,7 @@ plot(sbpt$stepPDF, do.points=FALSE)
 plot(sb$stepCDF, 0, sb$E+100000)
 
 library(pracma)
-integral(sb$stepPDF, 0, sb$E)
-integral(function(x){1-sb$stepCDF(x)}, 0, sb$E)
+integral(sb$stepPDF, 0, sb$E) # should be approximately 1
+integral(function(x){1-sb$stepCDF(x)}, 0, sb$E) # should be the mean
 }
 

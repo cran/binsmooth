@@ -36,7 +36,7 @@ Returns a list of two data frames:
 \item{county_true}{Statistics computed from the raw data}
 }
 \references{
-Hunter, D., Drown, M., and von Hippel, P. (2016) \emph{Optimized smoothing techniques for binned data}, in preparation.
+Paul T. von Hippel, David J. Hunter, McKalie Drown. \emph{Better Estimates from Binned Income Data: Interpolated CDFs and Mean-Matching}, Sociological Science, November 15, 2017. \url{https://www.sociologicalscience.com/articles-v4-26-641/}
 }
 \author{
 David J. Hunter and McKalie Drown
@@ -45,13 +45,22 @@ David J. Hunter and McKalie Drown
 \code{\link{county_bins}}, \code{\link{county_true}}
 }
 \examples{
-l <- simcounty(5)
-cb <- l$county_bins
-ct <- l$county_true
+l1 <- simcounty(5)
+cb <- l1$county_bins
+ct <- l1$county_true
 sbl <- splinebins(cb$bin_max[cb$fips==103], cb$households[cb$fips==103],
                   ct$mean_true[ct$fips==103])
 stl <- stepbins(cb$bin_max[cb$fips==105], cb$households[cb$fips==105],
                 ct$mean_true[ct$fips==105])
 plot(sbl$splinePDF, 0, 300000, n=500)
 plot(stl$stepPDF, do.points=FALSE, main=cb$county[cb$fips==105][1])
+
+## Simulate one county and estimate gini and theil from binned data
+l2 <- simcounty(1)
+binedges <- l2$county_bins$bin_max + 0.5 # continuity correction
+bincounts <- l2$county_bins$households
+splinefit <- splinebins(binedges, bincounts, l2$county_true$mean_true)
+gini(splinefit)
+theil(splinefit)
+l2$county_true
 }
