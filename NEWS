@@ -1,3 +1,12 @@
+Changes in Version 0.2.1
+========================
+
+Updates:
+
+* Checks to see if fitted median falls in the correct bin. If not, sets a flag, and generates warning messages.
+* Generates warning messages if top bin is bounded.
+* Generates warning messages if no mean is provided for mean-matching methods.
+
 Changes in Version 0.2.0
 ========================
 

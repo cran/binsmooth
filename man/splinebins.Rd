@@ -8,7 +8,7 @@ Creates a smooth cubic spline CDF and piecewise-quadratic PDF based on a set of 
 }
 \usage{
 splinebins(bEdges, bCounts, m = NULL,
-           numIterations = 16, monoMethod = c("hyman", "monoH.FC"), ipn = 200)
+           numIterations = 16, monoMethod = c("hyman", "monoH.FC"))
 }
 \arguments{
   \item{bEdges}{
@@ -17,16 +17,13 @@ A vector \eqn{e_1, e_2, \ldots, e_n} giving the right endpoints of each bin. The
   \item{bCounts}{
 A vector \eqn{c_1, c_2, \ldots, c_n} giving the counts for each bin (i.e., the number of data elements in each bin). Assumed to be nonnegative.}
   \item{m}{
-An estimate for the mean of the distribution. If no value is supplied, the mean will be estimated by (temporarily) setting \eqn{e_n} equal to \eqn{2e_{n-1}}.
+An estimate for the mean of the distribution. If no value is supplied, the mean will be estimated by (temporarily) setting \eqn{e_n} equal to \eqn{2e_{n-1}}, and a warning message will be generated.
 }
   \item{numIterations}{
 The number of iterations performed by a binary search that optimizes the CDF to fit the mean.
 }
   \item{monoMethod}{
 The method for constructing a monotone spline. Must be one of \code{"hyman"} or \code{"monoH.FC"}. The former choice tends to integrate faster and produce smoother density functions. See \code{\link[stats]{splinefun}} for more details.
-}
-  \item{ipn}{
-The number of points to sample from \code{splineCDF} to compute \code{splineInvCDF}.
 }
 }
 \details{
@@ -39,6 +36,7 @@ Returns a list with the following components.
 \item{E}{The right-hand endpoint of the support of the PDF.}
 \item{shrinkFactor}{If the supplied estimate for the mean is too small to be fitted with our method, the bins edges will be scaled by \code{shrinkFactor}, which will be chosen less than (and close to) 1.}
 \item{splineInvCDF}{An approximate inverse of \code{splineCDF}.}
+\item{fitWarn}{Flag set to \code{TRUE} if the fitted median falls in the wrong bin.}
 }
 \references{
 Paul T. von Hippel, David J. Hunter, McKalie Drown. \emph{Better Estimates from Binned Income Data: Interpolated CDFs and Mean-Matching}, Sociological Science, November 15, 2017. \url{https://www.sociologicalscience.com/articles-v4-26-641/}

@@ -21,7 +21,7 @@ A vector of percentages in the range \eqn{0 \le p \le 100}.
 The approximate inverse of the CDF calculated by \code{\link{splinebins}} is used to approximate percentiles of the smoothed distribution.
 }
 \value{
-A vector of percentiles.
+A vector of percentiles. Returns \code{NA} if an inaccurate fit is detected, as indicated by \code{fitWarn}.
 }
 \references{
 Paul T. von Hippel, David J. Hunter, McKalie Drown. \emph{Better Estimates from Binned Income Data: Interpolated CDFs and Mean-Matching}, Sociological Science, November 15, 2017. \url{https://www.sociologicalscience.com/articles-v4-26-641/}

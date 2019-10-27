@@ -21,7 +21,7 @@ A positive integer giving the sample size.
 The approximate inverse of the CDF calculated by \code{\link{splinebins}} is used to generate random values of the smoothed distribution.
 }
 \value{
-A vector of random deviates.
+A vector of random deviates. Returns \code{NA} if an inaccurate fit is detected, as indicated by \code{fitWarn}.
 }
 \references{
 Paul T. von Hippel, David J. Hunter, McKalie Drown. \emph{Better Estimates from Binned Income Data: Interpolated CDFs and Mean-Matching}, Sociological Science, November 15, 2017. \url{https://www.sociologicalscience.com/articles-v4-26-641/}
